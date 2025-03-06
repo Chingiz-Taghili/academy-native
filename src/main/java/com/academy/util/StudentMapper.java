@@ -1,8 +1,8 @@
 package com.academy.util;
 
-import com.academy.dtos.StudentCreateDto;
-import com.academy.dtos.StudentDto;
-import com.academy.dtos.StudentUpdateDto;
+import com.academy.dtos.student.StudentCreateDto;
+import com.academy.dtos.student.StudentDto;
+import com.academy.dtos.student.StudentUpdateDto;
 import com.academy.entity.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

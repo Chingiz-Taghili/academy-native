@@ -1,7 +1,8 @@
-package com.academy.repository;
+package com.academy.repository.impls;
 
 import com.academy.entity.Student;
 import com.academy.entity.University;
+import com.academy.repository.StudentRepository;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -201,7 +202,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> search(String name, String surname, String email, String universityName, Integer age) {
+    public List<Student> filter(String name, String surname, String email, String universityName, Integer age) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             StringBuilder sql = new StringBuilder(
                     "SELECT s.id, s.name, s.surname, s.email, s.age, " +

@@ -21,5 +21,5 @@ public interface StudentRepository {
 
     long count();
 
-    List<Student> search(String name, String surname, String email, String university, Integer age);
+    List<Student> filter(String name, String surname, String email, String universityName, Integer age);
 }

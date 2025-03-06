@@ -23,19 +23,19 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/students", "/students/create", "/students/update/*",
         "/students/delete/*", "/students/total-count", "/students/filter"})
-public class StudentServlet extends HttpServlet {
+public class UniversityServlet extends HttpServlet {
 
     private final StudentService studentService;
     private final ObjectMapper objectMapper;
     private final org.slf4j.Logger logger;
 
-    public StudentServlet() {
+    public UniversityServlet() {
         this.studentService = new StudentServiceImpl(new StudentRepositoryImpl(
                 Persistence.createEntityManagerFactory("studentPU")));
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JavaTimeModule());
         this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        this.logger = LoggerFactory.getLogger(StudentServlet.class);
+        this.logger = LoggerFactory.getLogger(UniversityServlet.class);
     }
 
     @Override

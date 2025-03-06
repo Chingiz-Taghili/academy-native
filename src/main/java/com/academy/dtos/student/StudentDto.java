@@ -1,8 +1,10 @@
-package com.academy.dtos;
+package com.academy.dtos.student;
+
 
 import com.academy.entity.University;
 
-public class StudentUpdateDto {
+public class StudentDto {
+    private Long id;
     private String name;
     private String surname;
     private Integer age;
@@ -10,11 +12,20 @@ public class StudentUpdateDto {
     private University university;
     private String password;
 
+    public Long getId() {
+        return id;
+    }
+
+    public StudentDto setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
 
-    public StudentUpdateDto setName(String name) {
+    public StudentDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -23,7 +34,7 @@ public class StudentUpdateDto {
         return surname;
     }
 
-    public StudentUpdateDto setSurname(String surname) {
+    public StudentDto setSurname(String surname) {
         this.surname = surname;
         return this;
     }
@@ -32,7 +43,7 @@ public class StudentUpdateDto {
         return age;
     }
 
-    public StudentUpdateDto setAge(Integer age) {
+    public StudentDto setAge(Integer age) {
         this.age = age;
         return this;
     }
@@ -41,7 +52,7 @@ public class StudentUpdateDto {
         return email;
     }
 
-    public StudentUpdateDto setEmail(String email) {
+    public StudentDto setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -50,7 +61,7 @@ public class StudentUpdateDto {
         return university;
     }
 
-    public StudentUpdateDto setUniversity(University university) {
+    public StudentDto setUniversity(University university) {
         this.university = university;
         return this;
     }
@@ -59,7 +70,7 @@ public class StudentUpdateDto {
         return password;
     }
 
-    public StudentUpdateDto setPassword(String password) {
+    public StudentDto setPassword(String password) {
         this.password = password;
         return this;
     }

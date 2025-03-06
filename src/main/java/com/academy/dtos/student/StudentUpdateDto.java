@@ -1,10 +1,8 @@
-package com.academy.dtos;
-
+package com.academy.dtos.student;
 
 import com.academy.entity.University;
 
-public class StudentDto {
-    private Long id;
+public class StudentUpdateDto {
     private String name;
     private String surname;
     private Integer age;
@@ -12,20 +10,11 @@ public class StudentDto {
     private University university;
     private String password;
 
-    public Long getId() {
-        return id;
-    }
-
-    public StudentDto setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public String getName() {
         return name;
     }
 
-    public StudentDto setName(String name) {
+    public StudentUpdateDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -34,7 +23,7 @@ public class StudentDto {
         return surname;
     }
 
-    public StudentDto setSurname(String surname) {
+    public StudentUpdateDto setSurname(String surname) {
         this.surname = surname;
         return this;
     }
@@ -43,7 +32,7 @@ public class StudentDto {
         return age;
     }
 
-    public StudentDto setAge(Integer age) {
+    public StudentUpdateDto setAge(Integer age) {
         this.age = age;
         return this;
     }
@@ -52,7 +41,7 @@ public class StudentDto {
         return email;
     }
 
-    public StudentDto setEmail(String email) {
+    public StudentUpdateDto setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -61,7 +50,7 @@ public class StudentDto {
         return university;
     }
 
-    public StudentDto setUniversity(University university) {
+    public StudentUpdateDto setUniversity(University university) {
         this.university = university;
         return this;
     }
@@ -70,7 +59,7 @@ public class StudentDto {
         return password;
     }
 
-    public StudentDto setPassword(String password) {
+    public StudentUpdateDto setPassword(String password) {
         this.password = password;
         return this;
     }

@@ -1,4 +1,4 @@
-package com.academy.dtos;
+package com.academy.dtos.student;
 
 import com.academy.entity.University;
 

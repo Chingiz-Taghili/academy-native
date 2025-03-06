@@ -1,12 +1,13 @@
-package com.academy.service;
+package com.academy.service.impls;
 
 import com.academy.entity.Student;
 import com.academy.payload.ApiResponse;
 import com.academy.repository.StudentRepository;
+import com.academy.service.StudentService;
 import com.academy.util.StudentMapper;
-import com.academy.dtos.StudentCreateDto;
-import com.academy.dtos.StudentDto;
-import com.academy.dtos.StudentUpdateDto;
+import com.academy.dtos.student.StudentCreateDto;
+import com.academy.dtos.student.StudentDto;
+import com.academy.dtos.student.StudentUpdateDto;
 import com.academy.payload.DataResponse;
 import com.academy.payload.MessageResponse;
 import jakarta.persistence.NoResultException;
@@ -71,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ApiResponse filterStudents(String name, String surname, String email, String university, Integer age) {
-        List<Student> findStudents = studentRepository.search(name, surname, email, university, age);
+        List<Student> findStudents = studentRepository.filter(name, surname, email, university, age);
         List<StudentDto> students = findStudents.stream().map(StudentMapper.INSTANCE::toDto).toList();
         return new DataResponse<>(students);
     }

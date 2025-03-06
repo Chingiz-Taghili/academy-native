@@ -1,7 +1,7 @@
 package com.academy.service;
 
-import com.academy.dtos.StudentCreateDto;
-import com.academy.dtos.StudentUpdateDto;
+import com.academy.dtos.student.StudentCreateDto;
+import com.academy.dtos.student.StudentUpdateDto;
 import com.academy.payload.ApiResponse;
 
 public interface StudentService {
