@@ -18,5 +18,5 @@ public interface StudentService {
 
     ApiResponse getTotalCount();
 
-    ApiResponse filterStudents(String name, String surname, String email, String university, Integer age);
+    ApiResponse filterStudents(String name, String surname, String email, String universityName, Integer age);
 }

@@ -1,6 +1,7 @@
 package com.academy;
 
 import com.academy.servlet.StudentServlet;
+import com.academy.servlet.TeacherServlet;
 import com.academy.servlet.UniversityServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
@@ -13,10 +14,12 @@ public class MainApplication {
         tomcat.getConnector();
         //Müvəqqəti yükləmə yeri
         Context context = tomcat.addContext("/", System.getProperty("java.io.tmpdir"));
-        // Servleti qeydiyyatdan keçirtmək
+        // Servlet-ləri qeydiyyatdan keçirtmək
         Tomcat.addServlet(context, "studentServlet", new StudentServlet());
+        Tomcat.addServlet(context, "teacherServlet", new TeacherServlet());
         Tomcat.addServlet(context, "universityServlet", new UniversityServlet());
         context.addServletMappingDecoded("/students/*", "studentServlet");
+        context.addServletMappingDecoded("/teachers/*", "teacherServlet");
         context.addServletMappingDecoded("/universities/*", "universityServlet");
 
         tomcat.start();

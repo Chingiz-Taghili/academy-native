@@ -71,8 +71,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ApiResponse filterStudents(String name, String surname, String email, String university, Integer age) {
-        List<Student> findStudents = studentRepository.filter(name, surname, email, university, age);
+    public ApiResponse filterStudents(String name, String surname, String email, String universityName, Integer age) {
+        List<Student> findStudents = studentRepository.filter(name, surname, email, universityName, age);
         List<StudentDto> students = findStudents.stream().map(StudentMapper.INSTANCE::toDto).toList();
         return new DataResponse<>(students);
     }
