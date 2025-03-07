@@ -1,12 +1,12 @@
 package com.academy.servlet;
 
-import com.academy.dtos.student.StudentCreateDto;
-import com.academy.dtos.student.StudentUpdateDto;
+import com.academy.dtos.university.UniversityCreateDto;
+import com.academy.dtos.university.UniversityUpdateDto;
 import com.academy.payload.ApiResponse;
 import com.academy.payload.ErrorResponse;
-import com.academy.repository.impls.StudentRepositoryImpl;
-import com.academy.service.StudentService;
-import com.academy.service.impls.StudentServiceImpl;
+import com.academy.repository.impls.UniversityRepositoryImpl;
+import com.academy.service.UniversityService;
+import com.academy.service.impls.UniversityServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -21,16 +21,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/students", "/students/create", "/students/update/*",
-        "/students/delete/*", "/students/total-count", "/students/filter"})
+@WebServlet(urlPatterns = {"/universities", "/universities/create", "/universities/update/*",
+        "/universities/delete/*", "/universities/total-count", "/universities/filter"})
 public class UniversityServlet extends HttpServlet {
 
-    private final StudentService studentService;
+    private final UniversityService universityService;
     private final ObjectMapper objectMapper;
     private final org.slf4j.Logger logger;
 
     public UniversityServlet() {
-        this.studentService = new StudentServiceImpl(new StudentRepositoryImpl(
+        this.universityService = new UniversityServiceImpl(new UniversityRepositoryImpl(
                 Persistence.createEntityManagerFactory("studentPU")));
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JavaTimeModule());
@@ -43,30 +43,28 @@ public class UniversityServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String servletPath = request.getServletPath(); // Esas endpoint ("/students")
+        String servletPath = request.getServletPath(); // Esas endpoint ("/universities")
         String pathInfo = request.getPathInfo(); // Elave hisse (meselen, "/1", "/total-count")
 
         try {
-            if ("/students".equals(servletPath) && (pathInfo == null || pathInfo.equals("/"))) {
-                // Butun telebeleri qaytar
-                ApiResponse students = studentService.getAllStudents();
-                response.getWriter().write(objectMapper.writeValueAsString(students));
+            if ("/universities".equals(servletPath) && (pathInfo == null || pathInfo.equals("/"))) {
+                // Butun universitetleri qaytar
+                ApiResponse universities = universityService.getAllUniversities();
+                response.getWriter().write(objectMapper.writeValueAsString(universities));
             } else if ("/total-count".equals(pathInfo)) {
-                // Umumi telebe sayini qaytar
-                ApiResponse count = studentService.getTotalCount();
+                // Umumi universitet sayini qaytar
+                ApiResponse count = universityService.getTotalCount();
                 response.getWriter().write(objectMapper.writeValueAsString(count));
             } else if ("/filter".equals(pathInfo)) {
-                // Filterlenmis telebeleri qaytar
+                // Filterlenmis universitetleri qaytar
                 String name = request.getParameter("name");
-                String surname = request.getParameter("surname");
-                String email = request.getParameter("email");
-                String university = request.getParameter("university");
-                Integer age = request.getParameter("age") != null ? Integer.parseInt(request.getParameter("age")) : null;
+                String studentName = request.getParameter("studentName");
+                String teacherName = request.getParameter("teacherName");
 
-                ApiResponse students = studentService.filterStudents(name, surname, email, university, age);
-                response.getWriter().write(objectMapper.writeValueAsString(students));
+                ApiResponse universities = universityService.filterUniversities(name, studentName, teacherName);
+                response.getWriter().write(objectMapper.writeValueAsString(universities));
             } else if (pathInfo.matches("^/[0-9]+$")) {
-                // ID-ye gore telebeni qaytar
+                // ID-ye gore universiteti qaytar
                 String idStr = pathInfo.substring(1); // "/1" -> "1"
                 if (!idStr.matches("\\d+")) { //Eded olub-olmadigi yoxlanilir
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -81,8 +79,8 @@ public class UniversityServlet extends HttpServlet {
                             "ID must be a positive number!", HttpServletResponse.SC_BAD_REQUEST)));
                     return;
                 }
-                ApiResponse student = studentService.getStudentById(id);
-                response.getWriter().write(objectMapper.writeValueAsString(student));
+                ApiResponse university = universityService.getUniversityById(id);
+                response.getWriter().write(objectMapper.writeValueAsString(university));
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse(
@@ -119,8 +117,8 @@ public class UniversityServlet extends HttpServlet {
             return;
         }
         try {
-            StudentCreateDto createDto = objectMapper.readValue(request.getReader(), StudentCreateDto.class);
-            ApiResponse result = studentService.createStudent(createDto);
+            UniversityCreateDto createDto = objectMapper.readValue(request.getReader(), UniversityCreateDto.class);
+            ApiResponse result = universityService.createUniversity(createDto);
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.getWriter().write(objectMapper.writeValueAsString(result));
         } catch (Exception e) {
@@ -151,10 +149,10 @@ public class UniversityServlet extends HttpServlet {
                         "ID must be a positive number!", HttpServletResponse.SC_BAD_REQUEST)));
                 return;
             }
-            StudentUpdateDto updateDto = objectMapper.readValue(request.getReader(), StudentUpdateDto.class);
-            ApiResponse apiResponse = studentService.updateStudent(updateDto, id);
+            UniversityUpdateDto updateDto = objectMapper.readValue(request.getReader(), UniversityUpdateDto.class);
+            ApiResponse result = universityService.updateUniversity(updateDto, id);
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(objectMapper.writeValueAsString(apiResponse));
+            response.getWriter().write(objectMapper.writeValueAsString(result));
         } catch (NumberFormatException e) {
             logger.error("Exception occurred: ", e);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -193,7 +191,7 @@ public class UniversityServlet extends HttpServlet {
                         "ID must be a positive number!", HttpServletResponse.SC_BAD_REQUEST)));
                 return;
             }
-            ApiResponse result = studentService.deleteStudent(id);
+            ApiResponse result = universityService.deleteUniversity(id);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(objectMapper.writeValueAsString(result));
         } catch (NumberFormatException e) {

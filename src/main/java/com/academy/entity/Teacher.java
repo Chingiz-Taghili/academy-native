@@ -3,8 +3,8 @@ package com.academy.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,10 +17,10 @@ public class Student {
     private University university;
     private String password;
 
-    public Student() {
+    public Teacher() {
     }
 
-    public Student(Long id, String name, String surname, Integer age, String email, University university, String password) {
+    public Teacher(Long id, String name, String surname, Integer age, String email, University university, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -34,7 +34,7 @@ public class Student {
         return id;
     }
 
-    public Student setId(Long id) {
+    public Teacher setId(Long id) {
         this.id = id;
         return this;
     }
@@ -43,7 +43,7 @@ public class Student {
         return name;
     }
 
-    public Student setName(String name) {
+    public Teacher setName(String name) {
         this.name = name;
         return this;
     }
@@ -52,7 +52,7 @@ public class Student {
         return surname;
     }
 
-    public Student setSurname(String surname) {
+    public Teacher setSurname(String surname) {
         this.surname = surname;
         return this;
     }
@@ -61,7 +61,7 @@ public class Student {
         return age;
     }
 
-    public Student setAge(Integer age) {
+    public Teacher setAge(Integer age) {
         this.age = age;
         return this;
     }
@@ -70,7 +70,7 @@ public class Student {
         return email;
     }
 
-    public Student setEmail(String email) {
+    public Teacher setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -79,7 +79,7 @@ public class Student {
         return university;
     }
 
-    public Student setUniversity(University university) {
+    public Teacher setUniversity(University university) {
         this.university = university;
         return this;
     }
@@ -88,7 +88,7 @@ public class Student {
         return password;
     }
 
-    public Student setPassword(String password) {
+    public Teacher setPassword(String password) {
         this.password = password;
         return this;
     }

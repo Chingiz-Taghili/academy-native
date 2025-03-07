@@ -202,10 +202,10 @@ public class UniversityRepositoryImpl implements UniversityRepository {
                 transaction.begin();
                 if (university != null && university.getId() != null) {
                     // Universitetin tələbələrinin olub-olmadığı yoxlanılır
-                    Long studentCount = (Long) entityManager.createQuery(
-                                    "SELECT COUNT(s) FROM students s WHERE s.university_id = :universityId")
+                    Long studentCount = ((Number) entityManager.createNativeQuery(
+                                    "SELECT COUNT(*) FROM students WHERE university_id = :universityId")
                             .setParameter("universityId", university.getId())
-                            .getSingleResult();
+                            .getSingleResult()).longValue();
 
                     if (studentCount > 0) {
                         throw new IllegalStateException("Cannot delete university with students assigned to it");
@@ -236,10 +236,10 @@ public class UniversityRepositoryImpl implements UniversityRepository {
             try {
                 transaction.begin();
                 // Universitetin tələbələrinin olub-olmadığını yoxlayır
-                Long studentCount = (Long) entityManager.createQuery(
-                                "SELECT COUNT(s) FROM students s WHERE s.university_id = :id")
+                Long studentCount = ((Number) entityManager.createNativeQuery(
+                                "SELECT COUNT(*) FROM students WHERE university_id = :id")
                         .setParameter("id", id)
-                        .getSingleResult();
+                        .getSingleResult()).longValue();
 
                 if (studentCount > 0) {
                     throw new IllegalStateException("Cannot delete university with students assigned to it");
